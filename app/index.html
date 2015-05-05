@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body ng-app="app">
+<div class="container" ng-controller="AppCtrl as app">
+    <div class="page-header">
+        <h1>Angular
+            <small>exercise</small>
+        </h1>
+    </div>
+    <h4 class="text-center alert alert-success" ng-bind="app.message"></h4>
+    <ng-view></ng-view>
+
+</div>
+
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<!-- endbower -->
+<script src="scripts/app.js"></script>
+
+</body>
+</html>
