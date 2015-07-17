@@ -1,6 +1,6 @@
 # Scaffolding
 
-Thanks to scaffolding you can quickly create tasks by cloning the interests you branch. 
+Thanks to scaffolding you can quickly create tasks by cloning the branch for your stack.
 You do not need anymore to worry about karma/coverage/reporters/gruntfile/npm configuration.
 
 
