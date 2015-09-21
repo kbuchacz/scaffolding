@@ -8,8 +8,8 @@ You don't have to bother with karma/coverage/reporters/gruntfile/npm configurati
 * Run ```bower install``` command to install dependencies from bower.json
 
 ###Commands
+* Run ```npm test```  to run tests and static analysis
 * Run ```grunt serve``` to start browser in live reload mode
-* Run ```grunt karma``` to run unit tests
-* Run ```grunt jshint``` to lint files in scripts folder
-* Run ```grunt wiredep```  to injects components from bower.json directly into index.html 
-
+* Run ```grunt test:dev```  to start developing unit tests
+* Run ```grunt test:e2e```  to start developing e2e tests
+* Run ```grunt jshint``` to lint files

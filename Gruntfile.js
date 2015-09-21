@@ -1,69 +1,133 @@
 /*jshint camelcase:false*/
-'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
-
-module.exports = function (grunt)
+(function ()
 {
+    'use strict';
 
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-wiredep');
+    module.exports = function (grunt)
+    {
+        grunt.loadNpmTasks('grunt-contrib-watch');
+        grunt.loadNpmTasks('grunt-contrib-connect');
+        grunt.loadNpmTasks('grunt-protractor-webdriver');
+        grunt.loadNpmTasks('grunt-contrib-jshint');
+        grunt.loadNpmTasks('grunt-karma');
+
+        require('load-grunt-tasks')(grunt);
 
 
-    var config = {
-        app: 'app'
-    };
+        var config = {
+            app: 'app'
+        };
 
-    grunt.initConfig({
-        config: config, watch: {
-            livereload: {
+        grunt.initConfig({
+            config: config,
+            watch: {
+                livereload: {
+                    options: {
+                        livereload: '<%= connect.options.livereload %>'
+                    },
+                    files: ['<%= config.app %>/**/*.html', '<%= config.app %>/**/*.js']
+                }
+            },
+
+            connect: {
                 options: {
-                    livereload: '<%= connect.options.livereload %>'
-                }, files: ['<%= config.app %>/index.html', '<%= config.app %>/**/*.html', '<%= config.app %>/scripts/**/*.js']
-            }
-        }, connect: {
-            options: {
-                port: 9000, livereload: 35729, hostname: 'localhost'
-            }, livereload: {
-                options: {
-                    open: true, middleware: function (connect)
-                    {
-                        return [connect().use('/bower_components', connect.static('./bower_components')), connect.static(config.app)
+                    port: 9000,
+                    livereload: 35729,
+                    hostname: '127.0.0.1'
+                },
+                test: {
+                    options: {
+                        base: ['app'],
+                        port: 9001
+                    }
+                },
+                livereload: {
+                    options: {
+                        open: true,
+                        middleware: function (connect)
+                        {
+                            return [connect().use('/bower_components', connect.static('./bower_components')), connect.static(config.app)
 
-                        ];
+                            ];
+                        }
                     }
                 }
+            },
+            protractor_webdriver: {
+                driver: {
+                    options: {}
+                }
+            },
+            protractor: {
+                options: {
+                    configFile: 'test/config.js',
+                    keepAlive: false,
+                    noColor: false
+                },
+                chrome: {
+                    options: {
+                        args: {
+                            browser: 'chrome'
+                        }
+                    }
+                },
+                firefox: {
+                    options: {
+                        args: {
+                            browser: 'firefox'
+                        }
+                    }
+                },
+                phantomjs: {
+                    options: {
+                        args: {
+                            browser: 'phantomjs'
+                        }
+                    }
+                },
+                continuous: {
+                    options: {
+                        keepAlive: true
+                    }
+                }
+            },
+            karma: {
+                options: {
+                    configFile: 'test/karma.conf.js'
+                },
+                unit: {
+                    singleRun: true
+                },
+                dev: {
+                    singleRun: false
+                }
+            },
+            jshint: {
+                options: {
+                    jshintrc: true,
+                    files: {
+                        src: ['**/*.js']
+                    }
+                },
+                human: {},
+                jenkins: {
+                    reporter: 'checkstyle',
+                    reporterOutput: 'target/jshint.xml'
+                }
             }
-        }, jshint: {
-            options: {
-                jshintrc: '.jshintrc'
+        });
 
-            }, all: ['<%= config.app %>/scripts/**/*.js']
-        }, karma: {
-            unit: {
-                configFile: 'test/karma.conf.js', singleRun: true
-            }, dev: {
-                configFile: 'test/karma.conf.js', singleRun: false
-            }
-        }, wiredep: {
+        grunt.registerTask('serve', ['connect:livereload', 'watch']);
 
-            app: {
-                src: ['<%= config.app %>/index.html'], ignorePath: /\.\.\//
-            }
-        }
-    });
+        grunt.registerTask('verify', ['jshint:jenkins', 'karma:unit', 'connect:test', 'protractor_webdriver', 'protractor:chrome']);
 
-    grunt.registerTask('serve', function ()
-    {
-        grunt.task.run(['connect:livereload', 'watch']);
-    });
+        grunt.registerTask('jshint', ['jshint:human']);
 
-    grunt.registerTask('default', ['serve']);
-};
+        grunt.registerTask('test:dev', ['karma']);
+
+        grunt.registerTask('test:e2e', ['connect:test', 'protractor_webdriver', 'protractor:chrome']);
+
+        grunt.registerTask('default', ['serve']);
+    };
+})();

@@ -22,8 +22,5 @@ describe('AppCtrl', function ()
         {
             expect(controller.message).toEqual('Hello Angular App!');
         });
-
-
     });
-
 });
