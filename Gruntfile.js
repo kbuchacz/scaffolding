@@ -7,7 +7,6 @@ module.exports = function (grunt)
         jshint: {
             options: {
                 jshintrc: true,
-                require: 'coverage/blanket',
                 src: ['app/**/*.js', 'test/**/*.js']
             },
             default: ['<%=jshint.options.src%>'],
