@@ -1,20 +1,17 @@
 {
-  "name": "NodeJS-scaffolding",
+  "name": "nodejs-realskill-scaffolding",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "http": "0.0.0"
   },
   "devDependencies": {
     "grunt": "0.4.5",
+    "grunt-cli": "0.1.13",
     "grunt-contrib-jshint": "0.11.2",
-    "grunt-jasmine-node-coverage": "0.4.1",
-    "jasmine-node": "1.14.5",
-    "supertest": "0.15.0"
+    "grunt-mocha-test": "0.12.7",
+    "mocha-junit-reporter": "1.6.1"
   },
   "scripts": {
-    "test": "jasmine-node --junitreport --output tests/target/tests tests/*.js tests/spec/*.spec.js app/*.js app/**/*.js --autotest --noStack",
-    "nodemon": "nodemon app/index.js",
-    "start": "node app/index.js"
+    "test": "grunt verify --force"
   }
 }
