@@ -21,7 +21,7 @@ module.exports = function (grunt)
         mocha_istanbul: {
             options: {
                 coverageFolder: 'target',
-                src: ['test/unit/**/*.spec.js'],
+                src: ['app/**/*.js'],
                 ui: 'bdd',
                 recursive: true
             },
