@@ -23,11 +23,13 @@
         onPrepare: function ()
         {
             var jasmineReporters = require('jasmine-reporters');
+            var SpecReporter = require('jasmine-spec-reporter');
             jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
                 consolidateAll: true,
                 filePrefix: 'protractor-results',
-                savePath: 'test/target'
+                savePath: 'target'
             }));
+            jasmine.getEnv().addReporter(new SpecReporter());
         }
     };
 })();

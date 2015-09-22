@@ -61,7 +61,7 @@
             },
             protractor: {
                 options: {
-                    configFile: 'test/config.js',
+                    configFile: 'test/protractor.conf.js',
                     keepAlive: false,
                     noColor: false
                 },
@@ -110,8 +110,8 @@
                         src: ['**/*.js']
                     }
                 },
-                human: {},
-                jenkins: {
+                default: {},
+                verify: {
                     reporter: 'checkstyle',
                     reporterOutput: 'target/jshint.xml'
                 }
@@ -120,11 +120,11 @@
 
         grunt.registerTask('serve', ['connect:livereload', 'watch']);
 
-        grunt.registerTask('verify', ['jshint:jenkins', 'karma:unit', 'connect:test', 'protractor_webdriver', 'protractor:chrome']);
+        grunt.registerTask('verify', ['jshint:verify', 'karma:unit', 'connect:test', 'protractor_webdriver', 'protractor:chrome']);
 
-        grunt.registerTask('jshint', ['jshint:human']);
+        grunt.registerTask('jshint', ['jshint:default']);
 
-        grunt.registerTask('test:dev', ['karma']);
+        grunt.registerTask('test:dev', ['karma:dev']);
 
         grunt.registerTask('test:e2e', ['connect:test', 'protractor_webdriver', 'protractor:chrome']);
 
