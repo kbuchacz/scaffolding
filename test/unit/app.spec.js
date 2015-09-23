@@ -6,7 +6,7 @@ describe('AppCtrl', function ()
 
     beforeEach(module('app'));
 
-    function createControler($controller)
+    function createController($controller)
     {
         controller = $controller('AppCtrl');
     }
@@ -15,7 +15,7 @@ describe('AppCtrl', function ()
     {
         beforeEach(inject(function ($controller)
         {
-            createControler($controller);
+            createController($controller);
         }));
 
         it('should load message', function ()

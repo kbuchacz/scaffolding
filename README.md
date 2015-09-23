@@ -17,7 +17,7 @@ You don't have to bother with karma/coverage/reporters/gruntfile/npm configurati
 ###Jshint
 To run verify jshint:
     
-    grunt jshint
+    grunt jshint:default
 
 ###Run tests
 
