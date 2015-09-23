@@ -8,7 +8,6 @@ module.exports = function (grunt)
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-protractor-webdriver');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-karma');
 
     require('load-grunt-tasks')(grunt);
 
@@ -90,17 +89,6 @@ module.exports = function (grunt)
                         }
                     }
                 },
-                karma: {
-                    options: {
-                        configFile: 'test/karma.conf.js'
-                    },
-                    unit: {
-                        singleRun: true
-                    },
-                    dev: {
-                        singleRun: false
-                    }
-                },
                 jshint: {
                     default: {
                         options: {
@@ -124,9 +112,7 @@ module.exports = function (grunt)
 
     grunt.registerTask('serve', ['connect:livereload', 'watch']);
 
-    grunt.registerTask('verify', ['jshint:verify', 'karma:unit', 'connect:test', 'protractor_webdriver', 'protractor:chrome']);
-
-    grunt.registerTask('test:dev', ['karma:dev']);
+    grunt.registerTask('verify', ['jshint:verify', 'connect:test', 'protractor_webdriver', 'protractor:chrome']);
 
     grunt.registerTask('test:e2e', ['connect:test', 'protractor_webdriver', 'protractor:chrome']);
 
