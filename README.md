@@ -14,12 +14,12 @@ You don't have to bother with karma/coverage/reporters/gruntfile/npm configurati
 
     grunt serve
     
-##Jshint
+###Jshint
 To run verify jshint:
     
     grunt jshint
 
-##Run tests
+###Run tests
 
 To unit tests in development mode:
     
