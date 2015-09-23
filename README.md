@@ -1,4 +1,4 @@
-#angularjs
+#AngularJS scaffolding for RealSkill
 
 You can quickly create angular tasks by cloning the scaffolding repo. 
 You don't have to bother with karma/coverage/reporters/gruntfile/npm configuration.
