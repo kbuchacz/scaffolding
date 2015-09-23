@@ -8,8 +8,6 @@
     "grunt-contrib-jshint": "0.11.2",
     "grunt-contrib-watch": "0.6.1",
     "grunt-karma": "0.10.1",
-    "grunt-protractor-runner": "1.1.4",
-    "grunt-protractor-webdriver": "0.1.9",
     "jasmine": "2.3.2",
     "jasmine-reporters": "2.0.7",
     "jasmine-spec-reporter": "^2.4.0",
@@ -23,7 +21,6 @@
     "q": "1.4.1"
   },
   "scripts": {
-    "pretest": "webdriver-manager update --standalone",
     "test": "grunt verify --force"
   },
   "private": true

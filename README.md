@@ -1,4 +1,4 @@
-#angularjs
+#AngularJS scaffolding for RealSkill with unit tests
 
 You can quickly create angular tasks by cloning the scaffolding repo. 
 You don't have to bother with karma/coverage/reporters/gruntfile/npm configuration.
@@ -17,7 +17,7 @@ You don't have to bother with karma/coverage/reporters/gruntfile/npm configurati
 ###Jshint
 To run verify jshint:
     
-    grunt jshint
+    grunt jshint:default
 
 ###Run tests
 
@@ -25,9 +25,6 @@ To unit tests in development mode:
     
     grunt test:dev
     
-To run e2e tests in development mode:
-
-    grunt test:e2e
 
 To run verify jshint, tests and coverage:
 
