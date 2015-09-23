@@ -1,37 +1,40 @@
-'use strict';
-
-function TextField(e)
+(function ()
 {
-    if (null == e) {
-        throw new Error('element must not be null');
-    }
-    this.element = e;
-}
+    'use strict';
 
-
-TextField.prototype.getValue = function ()
-{
-    return this.element.getText();
-};
-
-var helper = {
-    text: function (e)
+    function TextField(e)
     {
-        return new TextField(e);
+        if (null == e) {
+            throw new Error('element must not be null');
+        }
+        this.element = e;
     }
-};
 
-var elements = {
-    header: element.bind(null, by.id('header'))
-};
 
-function PageFragment()
-{
-}
+    TextField.prototype.getValue = function ()
+    {
+        return this.element.getText();
+    };
 
-PageFragment.prototype.getHeaderValue = function ()
-{
-    return helper.text(elements.header()).getValue();
-};
+    var helper = {
+        text: function (e)
+        {
+            return new TextField(e);
+        }
+    };
 
-module.exports = PageFragment;
+    var elements = {
+        header: element.bind(null, by.id('header'))
+    };
+
+    function PageFragment()
+    {
+    }
+
+    PageFragment.prototype.getHeaderValue = function ()
+    {
+        return helper.text(elements.header()).getValue();
+    };
+
+    module.exports = PageFragment;
+})();
