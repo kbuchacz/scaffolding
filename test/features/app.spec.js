@@ -1,10 +1,9 @@
-'use strict';
-
 var SampleApplication = require('./pageFragments/sampleApplication.fragment.js');
 var sampleApplication = new SampleApplication();
 
 describe('Sample application', function ()
 {
+    'use strict';
 
     beforeAll(function ()
     {
