@@ -1,4 +1,4 @@
-#AngularJS scaffolding fir RealSkill with e2e
+#AngularJS scaffolding for RealSkill with e2e tests
 
 You can quickly create angular tasks by cloning the scaffolding repo. 
 You don't have to bother with karma/coverage/reporters/gruntfile/npm configuration.
