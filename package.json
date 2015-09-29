@@ -1,5 +1,7 @@
 {
-  "name": "angular-exercise",
+  "name": "angularjs-e2e-scaffolding",
+  "version": "0.0.0",
+  "private": true,
   "dependencies": {},
   "devDependencies": {
     "grunt": "0.4.5",
@@ -18,6 +20,5 @@
   "scripts": {
     "pretest": "webdriver-manager update --standalone",
     "test": "grunt verify --force"
-  },
-  "private": true
+  }
 }
