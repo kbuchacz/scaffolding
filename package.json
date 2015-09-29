@@ -10,6 +10,7 @@
     "grunt-karma": "0.10.1",
     "grunt-protractor-runner": "1.1.4",
     "grunt-protractor-webdriver": "0.1.9",
+    "protractor": "2.1.0",
     "jasmine": "2.3.2",
     "jasmine-reporters": "2.0.7",
     "jasmine-spec-reporter": "^2.4.0",
@@ -19,8 +20,7 @@
     "karma-junit-reporter": "0.2.2",
     "karma-phantomjs-launcher": "0.1.4",
     "karma-spec-reporter": "0.0.13",
-    "load-grunt-tasks": "0.4.0",
-    "q": "1.4.1"
+    "load-grunt-tasks": "0.4.0"
   },
   "scripts": {
     "pretest": "webdriver-manager update --standalone",
