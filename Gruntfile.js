@@ -53,7 +53,10 @@ module.exports = function (grunt)
                 },
                 protractor_webdriver: {
                     driver: {
-                        options: {}
+                        options: {
+                            path: 'node_modules/.bin/',
+                            command: 'webdriver-manager start'
+                        }
                     }
                 },
                 protractor: {
