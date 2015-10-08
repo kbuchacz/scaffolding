@@ -56,7 +56,8 @@ module.exports = function (grunt)
                     driver: {
                         options: {
                             path: 'node_modules/.bin/',
-                            command: 'webdriver-manager start'
+                            command: 'webdriver-manager start',
+                            keepAlive: true
                         }
                     }
                 },
