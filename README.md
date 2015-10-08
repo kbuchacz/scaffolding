@@ -7,7 +7,9 @@ You don't have to bother with karma/coverage/reporters/gruntfile/npm configurati
 
 ###To install dependencies 
 
-    npm install && bower install
+    npm install
+   
+    bower install
 
 
 ###To start application in live reload mode:
