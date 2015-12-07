@@ -1,5 +1,5 @@
-var SampleApplication = require('./pageFragments/sampleApplication.fragment.js');
-var sampleApplication = new SampleApplication();
+var App = require('./pageFragments/app.fragment.js');
+var app = new App();
 
 describe('Sample application', function ()
 {
@@ -13,7 +13,7 @@ describe('Sample application', function ()
     {
         it('should display message in header', function ()
         {
-            expect(sampleApplication.getHeaderValue()).toEqual('Angular exercise');
+            expect(app.getHeaderValue()).toEqual('Angular exercise');
         });
     });
 });
