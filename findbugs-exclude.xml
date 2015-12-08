@@ -1,0 +1,8 @@
+<FindBugsFilter>
+
+    <Match>
+        <!--EI: May expose internal representation by returning reference to mutable object (EI_EXPOSE_REP)-->
+        <Bug code="EI,EI2"/>
+    </Match>
+
+</FindBugsFilter>
