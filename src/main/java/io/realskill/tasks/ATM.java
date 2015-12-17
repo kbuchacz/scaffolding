@@ -1,27 +1,42 @@
 package io.realskill.tasks;
 
-import javax.inject.Inject;
 
 public class ATM {
 
-    @Inject
     private ATMCentral connection;
 
-    public ATM() {
+    public ATM(ATMCentral central) {
+        connection = central;
     }
 
     public Double withdraw(double cardNo, int pin, double amount) {
-        if (!connection.isConnected()) {
+        if (!connection.connect()) {
             throw new IllegalStateException();
         }
-        return connection.withdraw(cardNo, pin, amount);
+
+        Double withdrawal = connection.withdraw(cardNo, pin, amount);
+        connection.disconnect();
+        return withdrawal;
     }
 
     public Double deposit(double cardNo, double amount) {
-        if (!connection.isConnected()) {
+        if (!connection.connect()) {
             throw new IllegalStateException();
         }
-        return connection.deposit(cardNo, amount);
+
+        Double deposit = connection.deposit(cardNo, amount);
+        connection.disconnect();
+        return deposit;
+    }
+
+    public Double currentStatus(double cardNo, int pin) {
+        if (!connection.connect()) {
+            throw new IllegalStateException();
+        }
+
+        Double status = connection.currentStatus(cardNo, pin);
+        connection.disconnect();
+        return status;
     }
 
 }
