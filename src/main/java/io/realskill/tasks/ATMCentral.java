@@ -1,18 +1,20 @@
 package io.realskill.tasks;
 
-import javax.annotation.PostConstruct;
+import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 @SessionScoped
+@Named
 public class ATMCentral implements Serializable {
 
     final static double MAX_CARD_NUMBER = 9999999999999999d;
     final static double MIN_CARD_NUMBER = 1000000000000000d;
-    final static int MIN_CARD_PIN = 0000;
+    final static int MIN_CARD_PIN = 1000;
     final static int MAX_CARD_PIN = 9999;
     static final long serialVersionUID = 21L;
 
@@ -21,24 +23,25 @@ public class ATMCentral implements Serializable {
     static Map<Double, Integer> cardsDb = new HashMap<Double, Integer>();
     static Map<Double, Double> bankDb = new HashMap<Double, Double>();
 
-    @PostConstruct
-    public void initialize() {
-    }
-
     public ATMCentral() {
     }
 
     public CreditCard addCard() {
         Random random = new Random();
         Double cardNumber = MIN_CARD_NUMBER + (MAX_CARD_NUMBER - MIN_CARD_NUMBER) * random.nextDouble();
-        Integer cardPin = MIN_CARD_PIN + (MAX_CARD_PIN - MIN_CARD_PIN) * random.nextInt();
+        Integer cardPin = MIN_CARD_PIN + random.nextInt((MAX_CARD_PIN - MIN_CARD_PIN));
         cardsDb.put(cardNumber, cardPin);
         return new CreditCard(cardNumber, cardPin);
     }
 
     public Double currentStatus(double cardNo, int pin) {
         if (this.isCredentialsValid(cardNo, pin)) {
-            return bankDb.get(cardNo);
+            Double status = bankDb.get(cardNo);
+            if (null != status) {
+                return status;
+            } else {
+                return 0d;
+            }
         } else {
             throw new RuntimeException("Not authorized!!!");
         }
@@ -46,42 +49,53 @@ public class ATMCentral implements Serializable {
 
     public Double deposit(double cardNo, double amount) {
         if (bankDb.containsKey(cardNo)) {
-            return bankDb.put(cardNo, bankDb.get(cardNo) + amount);
+            Double status = bankDb.get(cardNo) + amount;
+            bankDb.put(cardNo, status);
+            return status;
         } else {
-            return bankDb.put(cardNo, amount);
+            if (cardsDb.containsKey(cardNo)) {
+                bankDb.put(cardNo, amount);
+                return amount;
+            } else {
+                throw new RuntimeException("Incorrect or inactive card!!!");
+            }
         }
     }
 
     public Double withdraw(double cardNo, int pin, double amount) {
+        if (amount <= 0) {
+            throw new RuntimeException("Incorrect amount!");
+        }
         if (cardsDb.containsKey(cardNo)) {
             if (this.isCredentialsValid(cardNo, pin)) {
-                if (bankDb.get(cardNo) < amount) {
-                    return bankDb.put(cardNo, bankDb.get(cardNo) - amount);
+                Double currentAmount = bankDb.get(cardNo);
+                if (null != currentAmount && currentAmount >= amount) {
+                    double currentValue = bankDb.get(cardNo) - amount;
+                    bankDb.put(cardNo, currentValue);
+                    return currentValue;
                 } else {
-                    throw new RuntimeException("Too large amount of money!!!");
+                    throw new RuntimeException("Not sufficient funds!");
                 }
             } else {
                 throw new RuntimeException("Wrong pin!!!");
             }
         } else {
-            throw new RuntimeException("Wrong card!!!");
+            throw new RuntimeException("Incorrect or inactive card!!!");
         }
     }
 
-    public void connect() {
+    public boolean connect() {
         isConnected = true;
+        return isConnected;
     }
 
     public void disconnect() {
         isConnected = false;
     }
 
-    public boolean isConnected() {
-        return isConnected;
-    }
-
     public boolean isCredentialsValid(double cardNo, int pin) {
-        return cardsDb.get(cardNo).equals(pin);
+        Integer dbPin = cardsDb.get(cardNo);
+        return null != dbPin && dbPin.equals(pin);
     }
 
     public static class CreditCard {
