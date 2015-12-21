@@ -8,20 +8,27 @@ import java.util.Random;
 public class ATMCentral implements Serializable {
 
     final static double MAX_CARD_NUMBER = 9999999999999999d;
-    final static double MIN_CARD_NUMBER = 1000000000000000d;
-    final static int MIN_CARD_PIN = 1000;
+
     final static int MAX_CARD_PIN = 9999;
+
+    final static double MIN_CARD_NUMBER = 1000000000000000d;
+
+    final static int MIN_CARD_PIN = 1000;
+
     static final long serialVersionUID = 21L;
+
+    static Map<Double, Double> bankDb = new HashMap<Double, Double>();
+
+    static Map<Double, Integer> cardsDb = new HashMap<Double, Integer>();
 
     boolean isConnected = false;
 
-    static Map<Double, Integer> cardsDb = new HashMap<Double, Integer>();
-    static Map<Double, Double> bankDb = new HashMap<Double, Double>();
-
-    public ATMCentral() {
+    public ATMCentral()
+    {
     }
 
-    public CreditCard addCard() {
+    public CreditCard addCard()
+    {
         Random random = new Random();
         Double cardNumber = MIN_CARD_NUMBER + (MAX_CARD_NUMBER - MIN_CARD_NUMBER) * random.nextDouble();
         Integer cardPin = MIN_CARD_PIN + random.nextInt((MAX_CARD_PIN - MIN_CARD_PIN));
@@ -29,7 +36,14 @@ public class ATMCentral implements Serializable {
         return new CreditCard(cardNumber, cardPin);
     }
 
-    public Double currentStatus(double cardNo, int pin) {
+    public boolean connect()
+    {
+        isConnected = true;
+        return isConnected;
+    }
+
+    public Double currentStatus(double cardNo, int pin)
+    {
         if (this.isCredentialsValid(cardNo, pin)) {
             Double status = bankDb.get(cardNo);
             if (null != status) {
@@ -42,7 +56,8 @@ public class ATMCentral implements Serializable {
         }
     }
 
-    public Double deposit(double cardNo, double amount) {
+    public Double deposit(double cardNo, double amount)
+    {
         if (bankDb.containsKey(cardNo)) {
             Double status = bankDb.get(cardNo) + amount;
             bankDb.put(cardNo, status);
@@ -57,7 +72,19 @@ public class ATMCentral implements Serializable {
         }
     }
 
-    public Double withdraw(double cardNo, int pin, double amount) {
+    public void disconnect()
+    {
+        isConnected = false;
+    }
+
+    public boolean isCredentialsValid(double cardNo, int pin)
+    {
+        Integer dbPin = cardsDb.get(cardNo);
+        return null != dbPin && dbPin.equals(pin);
+    }
+
+    public Double withdraw(double cardNo, int pin, double amount)
+    {
         if (amount <= 0) {
             throw new RuntimeException("Incorrect amount!");
         }
@@ -79,34 +106,25 @@ public class ATMCentral implements Serializable {
         }
     }
 
-    public boolean connect() {
-        isConnected = true;
-        return isConnected;
-    }
-
-    public void disconnect() {
-        isConnected = false;
-    }
-
-    public boolean isCredentialsValid(double cardNo, int pin) {
-        Integer dbPin = cardsDb.get(cardNo);
-        return null != dbPin && dbPin.equals(pin);
-    }
-
     public static class CreditCard {
+
         private double number;
+
         private int pin;
 
-        public CreditCard(double number, int pin) {
+        public CreditCard(double number, int pin)
+        {
             this.number = number;
             this.pin = pin;
         }
 
-        public double getNumber() {
+        public double getNumber()
+        {
             return number;
         }
 
-        public int getPin() {
+        public int getPin()
+        {
             return pin;
         }
     }
