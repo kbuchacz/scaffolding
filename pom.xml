@@ -13,6 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacoco.version>0.7.5.201505241946</jacoco.version>
+        <wildfly.version>8.2.1.Final</wildfly.version>
         <jdk.source>1.7</jdk.source>
     </properties>
 
@@ -81,17 +82,17 @@
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-arquillian-container-embedded</artifactId>
-            <version>8.1.0.Final</version>
+            <version>${wildfly.version}</version>
         </dependency>
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-embedded</artifactId>
-            <version>8.1.0.Final</version>
+            <version>${wildfly.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-            <version>1.0.1.Final</version>
+            <version>1.0.2.Final</version>
         </dependency>
     </dependencies>
 
@@ -232,7 +233,7 @@
                                         <artifactItem>
                                             <groupId>org.wildfly</groupId>
                                             <artifactId>wildfly-dist</artifactId>
-                                            <version>8.1.0.Final</version>
+                                            <version>${wildfly.version}</version>
                                             <type>zip</type>
                                             <overWrite>false</overWrite>
                                             <outputDirectory>target</outputDirectory>
@@ -252,8 +253,8 @@
                             <systemPropertyVariables>
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                                 <!-- the maven dependency plugin will have already downloaded the server on /target -->
-                                <jboss.home>${project.basedir}/target/wildfly-8.1.0.Final</jboss.home>
-                                <module.path>${project.basedir}/target/wildfly-8.1.0.Final/modules</module.path>
+                                <jboss.home>${project.basedir}/target/wildfly-${wildfly.version}</jboss.home>
+                                <module.path>${project.basedir}/target/wildfly-${wildfly.version}/modules</module.path>
                             </systemPropertyVariables>
                             <redirectTestOutputToFile>false</redirectTestOutputToFile>
                         </configuration>
@@ -309,6 +310,9 @@
                             <include>**/jacoco-agent.properties</include>
                         </includes>
                     </testResource>
+                    <!--<testResource>-->
+                        <!--<directory></directory>-->
+                    <!--</testResource>-->
                 </testResources>
             </build>
 

@@ -20,7 +20,6 @@ import javax.inject.Inject;
 
 import java.io.File;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
