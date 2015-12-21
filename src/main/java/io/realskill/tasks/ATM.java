@@ -14,30 +14,22 @@ public class ATM implements Serializable {
     @Inject
     private ATMCentral connection;
 
-    public ATM() {
+    public ATM()
+    {
     }
 
-    public Double withdraw(double cardNo, int pin, double amount) {
-        if (!connection.connect()) {
-            throw new IllegalStateException();
-        }
-
-        Double withdrawal = connection.withdraw(cardNo, pin, amount);
-        connection.disconnect();
-        return withdrawal;
+    public ATMCentral getConnection()
+    {
+        return connection;
     }
 
-    public Double deposit(double cardNo, double amount) {
-        if (!connection.connect()) {
-            throw new IllegalStateException();
-        }
-
-        Double deposit = connection.deposit(cardNo, amount);
-        connection.disconnect();
-        return deposit;
+    public void setConnection(ATMCentral conn)
+    {
+        connection = conn;
     }
 
-    public Double currentStatus(double cardNo, int pin) {
+    public Double currentStatus(double cardNo, int pin)
+    {
         if (!connection.connect()) {
             throw new IllegalStateException();
         }
@@ -47,12 +39,25 @@ public class ATM implements Serializable {
         return status;
     }
 
-    public ATMCentral getConnection() {
-        return connection;
+    public Double deposit(double cardNo, double amount)
+    {
+        if (!connection.connect()) {
+            throw new IllegalStateException();
+        }
+
+        Double deposit = connection.deposit(cardNo, amount);
+        connection.disconnect();
+        return deposit;
     }
 
-    public void setConnection(ATMCentral conn) {
-        connection = conn;
-    }
+    public Double withdraw(double cardNo, int pin, double amount)
+    {
+        if (!connection.connect()) {
+            throw new IllegalStateException();
+        }
 
+        Double withdrawal = connection.withdraw(cardNo, pin, amount);
+        connection.disconnect();
+        return withdrawal;
+    }
 }
